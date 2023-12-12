@@ -13,7 +13,7 @@ export default function ArticlesList() {
       setArticles(res);
       setIsLoading(false)
     });
-  }, []);
+  }, [articles]);
 
 
   if(isLoading) return <div><p>Loading...</p></div>

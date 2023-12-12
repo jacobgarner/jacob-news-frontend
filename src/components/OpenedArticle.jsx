@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getSingleArticle } from "../api";
 import { useParams } from "react-router-dom";
+import CommentList from "./CommentList";
 
 
 export default function OpenedArticle() {
@@ -49,6 +50,9 @@ export default function OpenedArticle() {
         <button className="font-bold bg-slate-500 m-5">
           View comments ({article.comment_count})
         </button>
+      </div>
+      <div className="row-span-2 col-start-2 row-start-8 text-center">
+      <CommentList articleId={articleId}></CommentList>
       </div>
     </div>
   );
