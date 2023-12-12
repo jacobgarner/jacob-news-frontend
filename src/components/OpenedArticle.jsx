@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { getSingleArticle } from "../api";
+import { useParams } from "react-router-dom";
 
-export default function OpenedArticle(articleId) {
+
+export default function OpenedArticle() {
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+    let {articleId} = useParams();
+
   useEffect(() => {
-    getSingleArticle(1).then((res) => {
+    getSingleArticle(articleId).then((res) => {
       setArticle(res);
       setIsLoading(false);
     });
