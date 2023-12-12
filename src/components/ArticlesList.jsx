@@ -13,9 +13,9 @@ export default function ArticlesList() {
     });
   }, []);
 
-  if(isLoading) return <div><p>Loading...</p></div>
+  if(isLoading) return <div className="cursor-wait"><p>Loading...</p></div>
 
-  
+
   return (
     <div>
       <select defaultValue="Sort By">
