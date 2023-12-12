@@ -1,11 +1,12 @@
 import './App.css'
 import ArticlesList from './components/ArticlesList'
+import OpenedArticle from './components/OpenedArticle'
 
 function App() {
 
 
   return (<>
-      <ArticlesList></ArticlesList>
+      <OpenedArticle></OpenedArticle>
       </>
   )
 }
