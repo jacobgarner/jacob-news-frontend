@@ -1,11 +1,17 @@
 import './App.css'
-import ArticlesList from './components/ArticlesList'
+import { Routes, Route } from "react-router-dom";
+import AllArticles from './pages/AllArticles';
+import SingleArticle from './pages/SingleArticle';
+
 
 function App() {
 
 
   return (<>
-      <ArticlesList></ArticlesList>
+  <Routes> 
+    <Route path='/articles' element={<AllArticles></AllArticles>}></Route>
+    <Route path='/articles/:articleId' element={<SingleArticle></SingleArticle>}></Route>
+  </Routes>
       </>
   )
 }

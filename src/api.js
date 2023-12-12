@@ -9,3 +9,9 @@ export const getArticles = () =>{
     })
 }
 
+export const getSingleArticle = (articleId) =>{
+    return newsApi.get(`/articles/${articleId}`).then((res)=>{
+        return res.data.article
+    })
+}
+
