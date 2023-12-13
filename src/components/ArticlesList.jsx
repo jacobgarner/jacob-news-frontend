@@ -8,13 +8,13 @@ export default function ArticlesList() {
   const [topicInput, setTopicInput] = useState("");
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate();
+
   useEffect(() => {
     getArticles().then((res) => {
       setArticles(res);
       setIsLoading(false)
     });
-  }, [articles]);
-
+  }, []);
 
   if(isLoading) return <div><p>Loading...</p></div>
 

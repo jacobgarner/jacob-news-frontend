@@ -15,7 +15,7 @@ export default function OpenedArticle() {
       setArticle(res);
       setIsLoading(false);
     });
-  }, []);
+  }, [articleId]);
 
   if (isLoading)
     return (

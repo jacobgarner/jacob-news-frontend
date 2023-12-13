@@ -9,6 +9,7 @@ function App() {
 
   return (<>
   <Routes> 
+    <Route path='/' element={<AllArticles></AllArticles>}></Route>
     <Route path='/articles' element={<AllArticles></AllArticles>}></Route>
     <Route path='/articles/:articleId' element={<SingleArticle></SingleArticle>}></Route>
   </Routes>
