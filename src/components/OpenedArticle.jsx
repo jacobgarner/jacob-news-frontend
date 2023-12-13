@@ -1,19 +1,42 @@
 import { useEffect, useState } from "react";
-import { getSingleArticle } from "../api";
+import { getSingleArticle, patchArticleVotes } from "../api";
 import { useParams } from "react-router-dom";
 import CommentList from "./CommentList";
-
 
 export default function OpenedArticle() {
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [votes, setVotes] = useState(0);
+  const [error, setError] = useState('')
 
-    let {articleId} = useParams();
+  let { articleId } = useParams();
+
+  const handleVoteClick = (amount) => {
+    setVotes((currVotes)=>currVotes + amount);
+    patchArticleVotes(articleId, amount)
+      .then(() => {
+        setError("")
+      })
+      .catch((err) => {
+        setVotes((prevVotes) => prevVotes-amount)
+        setError("Error")
+      });
+  };
+
+  const handleUpVoteClick = () => {
+    handleVoteClick(1);
+  };
+  const handleDownVoteClick = () => {
+    handleVoteClick(-1);
+  };
 
   useEffect(() => {
     getSingleArticle(articleId).then((res) => {
       setArticle(res);
+      setVotes(res.votes);
+      setError("")
       setIsLoading(false);
+      
     });
   }, [articleId]);
 
@@ -39,9 +62,20 @@ export default function OpenedArticle() {
         </p>
       </div>
       <div className="col-start-1 row-start-4 text-right mr-10">
-        <p className="text-3xl">↑</p>
-        <p className="mr-2">Votes: {article.votes}</p>
-        <p className="text-3xl">↓</p>
+        {error ? <p>{error}</p> : <p></p>}
+        <p
+          className="text-3xl hover:cursor-pointer"
+          onClick={handleUpVoteClick}
+        >
+          ↑
+        </p>
+        <p className="mr-2">Votes: {votes}</p>
+        <p
+          className="text-3xl hover:cursor-pointer"
+          onClick={handleDownVoteClick}
+        >
+          ↓
+        </p>
       </div>
       <div className="row-span-2 col-start-2 row-start-3">
         <img src={article.article_img_url} alt="" />
@@ -52,7 +86,7 @@ export default function OpenedArticle() {
         </button>
       </div>
       <div className="row-span-2 col-start-2 row-start-8 text-center">
-      <CommentList articleId={articleId}></CommentList>
+        <CommentList articleId={articleId}></CommentList>
       </div>
     </div>
   );
