@@ -15,6 +15,7 @@ export default function OpenedArticle() {
     setVotes((currVotes)=>currVotes + amount);
     patchArticleVotes(articleId, amount)
       .then(() => {
+        setError("")
       })
       .catch((err) => {
         setVotes((prevVotes) => prevVotes-amount)
