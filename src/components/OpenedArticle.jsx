@@ -12,14 +12,13 @@ export default function OpenedArticle() {
   let { articleId } = useParams();
 
   const handleVoteClick = (amount) => {
-    setVotes(votes + amount);
+    setVotes((currVotes)=>currVotes + amount);
     patchArticleVotes(articleId, amount)
       .then(() => {
-        setError('')
       })
       .catch((err) => {
-        setError(err.response.data.msg)
-        setVotes(votes-1)
+        setVotes((prevVotes) => prevVotes-amount)
+        setError("Error")
       });
   };
 
@@ -30,12 +29,13 @@ export default function OpenedArticle() {
     handleVoteClick(-1);
   };
 
-  console.log(article.votes);
   useEffect(() => {
     getSingleArticle(articleId).then((res) => {
       setArticle(res);
       setVotes(res.votes);
+      setError("")
       setIsLoading(false);
+      
     });
   }, [articleId]);
 

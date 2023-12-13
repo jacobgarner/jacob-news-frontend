@@ -22,5 +22,13 @@ export const getCommentsByArticleId = (articleId) =>{
 }
 
 export const patchArticleVotes = (articleId, amount) =>{
-    return newsApi.patch(`/articles/${articleId}`, {inc_votes:amount})
+    if(navigator.onLine){
+    return newsApi.patch(`/articles/${articleId}`, {inc_votes:amount}).then((res)=>{
+        })
+    .catch((err)=>{
+        throw err
+    })}
+    else{
+        return Promise.reject("Offline. Unable to make request")
+    }
 }
