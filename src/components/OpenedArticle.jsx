@@ -22,7 +22,6 @@ export default function OpenedArticle() {
         setError("Error")
       });
   };
-
   const handleUpVoteClick = () => {
     handleVoteClick(1);
   };
