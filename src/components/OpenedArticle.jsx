@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getSingleArticle, patchArticleVotes } from "../api";
 import { useParams } from "react-router-dom";
 import CommentList from "./CommentList";
+import PostComment from "./PostComment";
+
 
 export default function OpenedArticle() {
   const [article, setArticle] = useState({});
@@ -81,6 +83,8 @@ export default function OpenedArticle() {
         <img src={article.article_img_url} alt="" />
       </div>
       <div className="row-span-2 col-start-2 row-start-6 text-center">
+      <PostComment articleId={articleId}></PostComment>
+
         <button className="font-bold bg-slate-500 m-5">
           View comments ({article.comment_count})
         </button>
