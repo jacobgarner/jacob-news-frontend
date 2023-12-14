@@ -55,3 +55,16 @@ export const getUsers = () =>{
     })
 }
 
+export const deleteComment = (commentId) =>{
+  return newsApi.delete(`/comments/${commentId}`).then((res)=>{
+    if(res.status === 204){
+      return "Comment deleted"
+    }
+    else{
+      return "Error"
+    }
+  })
+  .catch((err)=>{
+    return err
+  })
+}
