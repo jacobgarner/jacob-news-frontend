@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import AllArticles from "./pages/AllArticles";
 import SingleArticle from "./pages/SingleArticle";
 import { UserProvider } from "./context/user";
+import FilteredArticles from "./components/FilteredArticles";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           path="/articles/:articleId"
           element={<SingleArticle></SingleArticle>}
         ></Route>
+        
       </Routes>
     </UserProvider>
   );
