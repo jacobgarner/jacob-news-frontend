@@ -5,19 +5,24 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ArticlesList() {
   const [articles, setArticles] = useState([]);
-  const [topicInput, setTopicInput] = useState("");
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate();
 
+  const queryParameters = new URLSearchParams(window.location.search)
+
+  const topic = queryParameters.get("topic")
+    
+
+
+
   useEffect(() => {
-    getArticles().then((res) => {
+    getArticles(topic).then((res) => {
       setArticles(res);
       setIsLoading(false)
     });
-  }, []);
+  }, [topic]);
 
   if(isLoading) return <div><p>Loading...</p></div>
-
   
   return (
     <div>

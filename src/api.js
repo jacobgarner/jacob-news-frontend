@@ -4,10 +4,16 @@ const newsApi = axios.create({
   baseURL: "https://jacobs-news-api.onrender.com/api",
 });
 
-export const getArticles = () => {
-  return newsApi.get("/articles").then((res) => {
-    return res.data;
-  });
+export const getArticles = (query) => {
+  if (query) {
+    return newsApi.get(`/articles?topic=${query}`).then((res) => {
+      return res.data;
+    });
+  } else {
+    return newsApi.get("/articles/").then((res) => {
+      return res.data;
+    });
+  }
 };
 
 export const getSingleArticle = (articleId) => {
@@ -44,27 +50,34 @@ export const postComment = (articleId, body, username) => {
     .then((res) => {
       return res.data;
     })
-    .catch((err)=>{
-        throw err
-    })
+    .catch((err) => {
+      throw err;
+    });
 };
 
-export const getUsers = () =>{
-    return newsApi.get("/users").then((res)=>{
-        return res.data.users
-    })
-}
+export const getUsers = () => {
+  return newsApi.get("/users").then((res) => {
+    return res.data.users;
+  });
+};
 
-export const deleteComment = (commentId) =>{
-  return newsApi.delete(`/comments/${commentId}`).then((res)=>{
-    if(res.status === 204){
-      return "Comment deleted"
-    }
-    else{
-      return "Error"
-    }
-  })
-  .catch((err)=>{
-    return err
+export const deleteComment = (commentId) => {
+  return newsApi
+    .delete(`/comments/${commentId}`)
+    .then((res) => {
+      if (res.status === 204) {
+        return "Comment deleted";
+      } else {
+        return "Error";
+      }
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getTopics = () =>{
+  return newsApi.get("/topics").then((res)=>{
+    return res.data.topics
   })
 }
