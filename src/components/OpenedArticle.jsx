@@ -2,24 +2,26 @@ import { useEffect, useState } from "react";
 import { getSingleArticle, patchArticleVotes } from "../api";
 import { useParams } from "react-router-dom";
 import CommentList from "./CommentList";
+import PostComment from "./PostComment";
 
 export default function OpenedArticle() {
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [votes, setVotes] = useState(0);
-  const [error, setError] = useState('')
+  const [error, setError] = useState("");
+  const [comments, setComments] = useState([]);
 
   let { articleId } = useParams();
 
   const handleVoteClick = (amount) => {
-    setVotes((currVotes)=>currVotes + amount);
+    setVotes((currVotes) => currVotes + amount);
     patchArticleVotes(articleId, amount)
       .then(() => {
-        setError("")
+        setError("");
       })
       .catch((err) => {
-        setVotes((prevVotes) => prevVotes-amount)
-        setError("Error")
+        setVotes((prevVotes) => prevVotes - amount);
+        setError("Error");
       });
   };
 
@@ -34,9 +36,8 @@ export default function OpenedArticle() {
     getSingleArticle(articleId).then((res) => {
       setArticle(res);
       setVotes(res.votes);
-      setError("")
+      setError("");
       setIsLoading(false);
-      
     });
   }, [articleId]);
 
@@ -81,12 +82,12 @@ export default function OpenedArticle() {
         <img src={article.article_img_url} alt="" />
       </div>
       <div className="row-span-2 col-start-2 row-start-6 text-center">
-        <button className="font-bold bg-slate-500 m-5">
-          View comments ({article.comment_count})
-        </button>
+        <PostComment articleId={articleId} comments={comments} setComments={setComments}></PostComment>
+
+        <button className="font-bold bg-slate-500 m-5"></button>
       </div>
       <div className="row-span-2 col-start-2 row-start-8 text-center">
-        <CommentList articleId={articleId}></CommentList>
+        <CommentList articleId={articleId} comments={comments} setComments={setComments}></CommentList>
       </div>
     </div>
   );
