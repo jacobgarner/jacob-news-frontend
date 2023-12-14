@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/user";
 import { postComment } from "../api";
-import CommentCard from "./CommentCard";
 
 export default function PostComment({ articleId, comments, setComments }) {
   const [comment, setComment] = useState({});
@@ -32,7 +31,6 @@ export default function PostComment({ articleId, comments, setComments }) {
     setComments([comment, ...comments])
   },[comment])
   
-console.log('ye')
   return (
     <div>
       <input
