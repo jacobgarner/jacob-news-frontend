@@ -21,7 +21,6 @@ export default function PostComment({ articleId, comments, setComments }) {
         setNewComment(commentInput);
         setCommentInput("");
         setComment(res.addedComment);
-        console.log(res.addedComment)
       })
       .catch((err) => {
         setError("Error")
@@ -32,7 +31,6 @@ export default function PostComment({ articleId, comments, setComments }) {
     setComments([comment, ...comments])
   },[comment])
   
-console.log('ye')
   return (
     <div>
       <input
