@@ -5,12 +5,17 @@ import { deleteComment } from "../api";
 export default function CommentCard({ comment }) {
   const [deleted, setDeleted] = useState(false);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const { currentUser } = useContext(UserContext);
 
   const date = new Date(comment.created_at);
 
   const handleClick = () => {
+    if(loading){
+      return
+    }
+    setLoading(true)
     deleteComment(comment.comment_id).then((res) => {
       if (res === "Comment deleted") {
         setDeleted(true);
@@ -18,7 +23,9 @@ export default function CommentCard({ comment }) {
       } else {
         setError(true);
       }
-    });
+    }).finally(()=>{
+      setLoading(false)
+    })
   };
   return (
     <div>
@@ -28,7 +35,7 @@ export default function CommentCard({ comment }) {
         <div className="border-y">
           {error ? <p>Deletion failed!</p>:<p></p>}
           {currentUser.username === comment.author ? (
-            <p onClick={handleClick}>x</p>
+            <p onClick={handleClick} style={{cursor:loading?"not-allowed":"pointer"}}>{loading ? 'Deleting...' : 'x'}</p>
           ) : (
             <p></p>
           )}
