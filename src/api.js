@@ -54,3 +54,4 @@ export const getUsers = () =>{
         return res.data.users
     })
 }
+

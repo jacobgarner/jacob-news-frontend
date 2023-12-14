@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/user";
 import { postComment } from "../api";
 import CommentCard from "./CommentCard";
 
-export default function PostComment({ articleId }) {
+export default function PostComment({ articleId, comments, setComments }) {
   const [comment, setComment] = useState({});
   const [commentInput, setCommentInput] = useState("");
   const [newComment, setNewComment] = useState("");
@@ -28,6 +28,11 @@ export default function PostComment({ articleId }) {
       });
   };
 
+  useEffect(()=>{
+    setComments([comment, ...comments])
+  },[comment])
+  
+console.log('ye')
   return (
     <div>
       <input
@@ -42,13 +47,10 @@ export default function PostComment({ articleId }) {
       >
         Post comment
       </button>
-      {error ? <p>Error!</p> : <p></p>}
 
-      {newComment ? (
-        <CommentCard comment={comment}></CommentCard>
-      ) : (
-        <p>{newComment}</p>
-      )}
+
+      {error ? <p>Unable to post blank comment!</p> : <p></p>}
+
     </div>
   );
 }
